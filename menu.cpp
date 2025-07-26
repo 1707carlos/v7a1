@@ -31,6 +31,52 @@ void juegoAdivina() {
     } while (intento != secreto);
 }
 
+void juegoPiedraPapelTijera() {
+    string opciones[] = {"Piedra", "Papel", "Tijera"};
+    int eleccionJugador, eleccionPC;
+
+    cout << "\n✂️  Juego: Piedra, Papel o Tijera ✂️\n";
+    cout << "Elige: 0 = Piedra, 1 = Papel, 2 = Tijera\n";
+    cin >> eleccionJugador;
+
+    if (eleccionJugador < 0 || eleccionJugador > 2) {
+        cout << "Opción inválida.\n";
+        return;
+    }
+
+    srand(time(0));
+    eleccionPC = rand() % 3;
+
+    cout << "Tú: " << opciones[eleccionJugador] << " | PC: " << opciones[eleccionPC] << "\n";
+
+    if (eleccionJugador == eleccionPC) {
+        cout << "¡Empate!\n";
+    } else if ((eleccionJugador == 0 && eleccionPC == 2) ||
+               (eleccionJugador == 1 && eleccionPC == 0) ||
+               (eleccionJugador == 2 && eleccionPC == 1)) {
+        cout << "¡Ganaste!\n";
+    } else {
+        cout << "Perdiste.\n";
+    }
+}
+
+void juegoDados() {
+    srand(time(0));
+    int jugador = rand() % 6 + 1;
+    int pc = rand() % 6 + 1;
+
+    cout << "\n🎲 Juego de Dados 🎲\n";
+    cout << "Tú sacaste: " << jugador << "\n";
+    cout << "PC sacó: " << pc << "\n";
+
+    if (jugador > pc)
+        cout << "¡Ganaste!\n";
+    else if (jugador < pc)
+        cout << "Perdiste.\n";
+    else
+        cout << "Empate.\n";
+}
+
 int main() {
     int opcion;
     do {
@@ -38,7 +84,9 @@ int main() {
         cout << "1. Mostrar mensaje\n";
         cout << "2. Sumar dos números\n";
         cout << "3. Jugar Adivina el número\n";
-        cout << "4. Salir\n";
+        cout << "4. Jugar Piedra, Papel o Tijera\n";
+        cout << "5. Jugar Dados\n";
+        cout << "6. Salir\n";
         cout << "Elige una opción: ";
         cin >> opcion;
 
@@ -57,12 +105,18 @@ int main() {
                 juegoAdivina();
                 break;
             case 4:
+                juegoPiedraPapelTijera();
+                break;
+            case 5:
+                juegoDados();
+                break;
+            case 6:
                 cout << "¡Hasta luego!\n";
                 break;
             default:
                 cout << "Opción no válida.\n";
         }
-    } while(opcion != 4);
+    } while(opcion != 6);
 
     return 0;
 }
